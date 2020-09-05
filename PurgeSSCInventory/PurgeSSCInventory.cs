@@ -11,7 +11,7 @@ namespace PurgeSSCInventory
     {
         public override string Author => "Quinci";
 
-        public override string Description => "Adds a command to let the server console purge the tsCharacter table.";
+        public override string Description => "Adds a command to let the server console purge the sscinventory table.";
 
         public override string Name => "PurgeSSCInventory";
 
@@ -38,7 +38,7 @@ namespace PurgeSSCInventory
 
         private void OnInit(EventArgs args)
         {
-            Commands.ChatCommands.Add(new Command("tshock.admin.group", PurgeSSCInventoryTable, "purgessc") { HelpText = "Purges the tsCharacter table. Type /confirm or /deny to confirm/deny the deletion." });
+            Commands.ChatCommands.Add(new Command("tshock.admin.group", PurgeSSCInventoryTable, "purgessc") { HelpText = "Purges the sscinventory table. Type /confirm or /deny to confirm/deny the deletion." });
         }
 
         private void PurgeSSCInventoryTable(CommandArgs args)
@@ -52,32 +52,32 @@ namespace PurgeSSCInventory
             args.Player.AddResponse("deny", a =>
             {
                 args.Player.AwaitingResponse.Remove("confirm");
-                args.Player.SendSuccessMessage("You have denied to purge the tsCharacter table.");
+                args.Player.SendSuccessMessage("You have denied to purge the sscinventory table.");
             });
             args.Player.AddResponse("confirm", a =>
             {
                 args.Player.AwaitingResponse.Remove("deny");
-                args.Player.SendSuccessMessage("Attempting to delete tsCharacter table...");
+                args.Player.SendSuccessMessage("Attempting to delete sscinventory table...");
                 try
                 {
-                    int deletedRows = TShock.CharacterDB.database.Query("DELETE FROM tsCharacter");
+                    int deletedRows = TShock.CharacterDB.database.Query("DELETE FROM sscinventory");
                     args.Player.SendInfoMessage($"Deleted Rows: {deletedRows}");
                     if (deletedRows > 0)
                     {
-                        args.Player.SendSuccessMessage($"Deleted {deletedRows} rows from tsCharacter");
+                        args.Player.SendSuccessMessage($"Deleted {deletedRows} rows from sscinventory");
                     }
                     else if (deletedRows == 0)
                     {
-                        args.Player.SendInfoMessage($"Table tsCharacter is already empty!");
+                        args.Player.SendInfoMessage($"Table sscinventory is already empty!");
                     }
                     else
                     {
-                        args.Player.SendErrorMessage($"Failed to delete from tsCharacter: Table doesn't exist or see exception");
+                        args.Player.SendErrorMessage($"Failed to delete from sscinventory: Table doesn't exist or see exception");
                     }
                 }
                 catch (Exception e)
                 {
-                    args.Player.SendErrorMessage($"Failed to delete from tsCharacter: Table doesn't exist or see exception");
+                    args.Player.SendErrorMessage($"Failed to delete from sscinventory: Table doesn't exist or see exception");
                     TShock.Log.Warn($"PurgeSSCInventory threw an exception:\n{e}");
                 }
             });
