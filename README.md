@@ -1,5 +1,6 @@
 # PurgeSSCInventory
-Adds a command to purge all ssc items. Console only command with a confirm/deny prompt
+Adds a command to purge all ssc items. Console only command with a confirm/deny prompt  
+Uses deny instead of cancel because essentials+ time commands uses cancel   
 
 ## Commands   
 | Command | Description | Permission |
